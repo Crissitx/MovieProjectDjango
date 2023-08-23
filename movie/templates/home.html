@@ -1,7 +1,13 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script>
         const myCarouselElement = document.querySelector('#myCarousel')
         const carousel = new bootstrap.Carousel(myCarouselElement, {
@@ -9,13 +15,7 @@
         touch: false
         })
     </script>
-</head>
-
-<body>
-    {% extends 'base.html' %}
-    {% block content %}
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    
     <div class="container">
         <!-- <h1>Welcome to Home Page, <span style="color: red">{{name}}</span></h1>
         #<h2>This is the full home page</h2> -->
@@ -31,41 +31,47 @@
         <p>Searching for {{searchTerm}}</p>
     
         <br>
-    
-        <div id="myCarousel" class="carousel slide">
+
+        <div id="myCarousel" class="carousel carousel-dark slide">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
             <div class="carousel-inner">
-    
-            <div class="carousel-item active">
-                <img src="{{premieres.0.image.url}}" class="d-block w-80">
-            </div>
-            
-            
+              <div class="carousel-item active" data-bs-interval="10000">
+                <img src="{{premieres.0.image.url}}" class="d-block w-100" width="90%" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>{{premieres.0.title}}</h5>
+                  <p>{{premieres.0.description}}</p>
+                </div>
+              </div>
+
             {% for premier in premieres|slice:"1:" %}
-            <div class="carousel-item">
-                <img src="{{premier.image.url}}" class="d-block w-80">
-              </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="{{premier.image.url}}" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{premier.title}}</h5>
+                        <p>{{premier.description}}</p>
+                    </div>
+                </div>
             {% endfor %}
-            <!--  <div class="carousel-item active">
-                <img src="{{premiere.image.url}}" class="d-block w-80">
-              </div>
+
               
-              <div class="carousel-item">
-                <img src="{{premiere.image.url}}" class="d-block w-80">
-              </div>
-            -->
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
     
         <br>
-    
+        <br>
+
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for movie in movies %}
             <div v-for="movie in movies" class="col">
